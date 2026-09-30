@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #03040A;
+  --color-navy-deep: #070A24;
+  --color-navy-secondary: #0B1040;
+  --color-electric-blue: #1018FF;
+  --color-bright-blue: #1428FF;
+  --color-acid-lime: #A8FF00;
+  --color-off-white: #F2F2ED;
+  --color-muted-grey: #85889A;
+
+  --font-grotesk: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+@layer base {
+  * {
+    border-color: rgba(242, 242, 237, 0.08);
+  }
+
+  html {
+    scrollbar-gutter: stable;
+  }
+
+  html.intro-scroll-locked {
+    overflow: hidden !important;
+  }
+
+  body.intro-scroll-locked {
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+    touch-action: none !important;
+  }
+
+  /* Hide scrollbar track and thumb completely while intro presentation is active */
+  html.intro-scroll-locked::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  body {
+    font-family: var(--font-grotesk);
+    background-color: #03040A;
+    color: #F2F2ED;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-grotesk);
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+}
+
+/* Subtle CRT Scanline overlay effect for vintage monitor aesthetics */
+.crt-scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.06),
+    rgba(0, 255, 0, 0.02),
+    rgba(0, 0, 255, 0.06)
+  );
+  background-size: 100% 3px, 3px 100%;
+  pointer-events: none;
+}
+
+/* Subtle technical drafting grid */
+.tech-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(242, 242, 237, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(242, 242, 237, 0.03) 1px, transparent 1px);
+}
+
+/* Subtle film grain texture overlay */
+.film-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Kinetic horizontal marquee */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+  .animate-marquee {
+    animation: none;
+  }
+}
