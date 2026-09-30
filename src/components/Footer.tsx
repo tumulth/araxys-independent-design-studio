@@ -16,7 +16,7 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
         {/* Brand & Studio Note */}
         <div className="flex flex-col gap-1.5">
-          <Link to="/" className="inline-block">
+          <Link to="/" className="inline-block" aria-label="ARAXYS Home">
             <AraxysLogo />
           </Link>
           <span className="font-mono text-[11px] text-[#85889A] tracking-wider uppercase">

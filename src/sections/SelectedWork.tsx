@@ -128,7 +128,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({ className = "" }) =>
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
-                  className={`font-mono text-xs tracking-wider uppercase px-3.5 py-1.5 transition-all duration-200 border flex items-center gap-2 ${
+                  className={`font-mono text-xs tracking-wider uppercase px-3.5 py-2 sm:py-1.5 min-h-[36px] sm:min-h-0 relative transition-all duration-200 border flex items-center gap-2 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#A8FF00] ${
                     isActive
                       ? 'border-[#A8FF00] bg-[#A8FF00] text-[#03040A] font-semibold'
                       : 'border-white/10 text-[#85889A] hover:text-[#F2F2ED] hover:border-white/30 bg-transparent'
@@ -147,16 +147,22 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({ className = "" }) =>
 
         {/* Catalog List Layout with Stagger Reveal Ref */}
         <div ref={listRef} className="divide-y divide-white/[0.08]">
-          {filteredProjects.map((project, index) => (
-            <ProjectRow 
-              key={project.slug} 
-              project={project} 
-              index={index}
-              onHoverStart={(proj) => setHoveredProject(proj)}
-              onHoverEnd={() => setHoveredProject(null)}
-              onMouseMove={handleMouseMove}
-            />
-          ))}
+          {filteredProjects.length === 0 ? (
+            <div className="py-20 text-center font-mono text-xs text-[#85889A] uppercase tracking-widest">
+              NO RELEASES FOUND IN THIS CATEGORY.
+            </div>
+          ) : (
+            filteredProjects.map((project, index) => (
+              <ProjectRow 
+                key={project.slug} 
+                project={project} 
+                index={index}
+                onHoverStart={(proj) => setHoveredProject(proj)}
+                onHoverEnd={() => setHoveredProject(null)}
+                onMouseMove={handleMouseMove}
+              />
+            ))
+          )}
         </div>
 
         {/* Selected Work Footer Meta */}

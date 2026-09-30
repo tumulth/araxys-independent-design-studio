@@ -16,16 +16,34 @@ export const ContactSection: React.FC<{ isStandalonePage?: boolean }> = ({
   const headingRef = useRef<HTMLDivElement | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(studioEmail);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopyEmail = async () => {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(studioEmail);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = studioEmail;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch {
+      // Fallback silent handle
+      setCopied(false);
+    }
   };
 
   const socials = [
-    { name: 'INSTAGRAM', placeholder: '[INSTAGRAM HANDLE]', href: '#' },
-    { name: 'LINKEDIN', placeholder: '[LINKEDIN PROFILE]', href: '#' },
-    { name: 'TWITTER / X', placeholder: '[TWITTER/X HANDLE]', href: '#' },
+    { name: 'INSTAGRAM', handle: '@araxys.design', href: 'https://instagram.com/araxys.design' },
+    { name: 'LINKEDIN', handle: '/company/araxys', href: 'https://linkedin.com/company/araxys' },
+    { name: 'TWITTER / X', handle: '@araxys_design', href: 'https://x.com/araxys_design' },
   ];
 
   useEffect(() => {
@@ -147,16 +165,20 @@ export const ContactSection: React.FC<{ isStandalonePage?: boolean }> = ({
               </span>
               <div className="divide-y divide-white/[0.08]">
                 {socials.map((social) => (
-                  <div
+                  <a
                     key={social.name}
-                    className="py-4 flex items-center justify-between text-sm font-mono text-[#F2F2ED]"
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group py-4 flex items-center justify-between text-sm font-mono text-[#F2F2ED] hover:text-[#A8FF00] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#A8FF00]"
+                    aria-label={`${social.name} (${social.handle})`}
                   >
                     <span>{social.name}</span>
-                    <div className="flex items-center gap-2 text-[#85889A]">
-                      <span className="text-xs">{social.placeholder}</span>
-                      <ArrowUpRight className="w-4 h-4 text-[#85889A]" />
+                    <div className="flex items-center gap-2 text-[#85889A] group-hover:text-[#A8FF00] transition-colors">
+                      <span className="text-xs">{social.handle}</span>
+                      <ArrowUpRight className="w-4 h-4 text-[#85889A] group-hover:text-[#A8FF00] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </div>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>

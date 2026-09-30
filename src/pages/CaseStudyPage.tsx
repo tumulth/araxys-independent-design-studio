@@ -209,11 +209,21 @@ export const CaseStudyPage: React.FC = () => {
           {project.media.gallery.map((item, idx) => (
             <div 
               key={idx}
+              role="button"
+              tabIndex={0}
               onClick={() => {
                 setActiveArtifactIndex(idx);
                 setLightboxOpen(true);
               }}
-              className={`rounded-sm overflow-hidden border border-white/10 relative group cursor-pointer ${
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setActiveArtifactIndex(idx);
+                  setLightboxOpen(true);
+                }
+              }}
+              aria-label={`Expand artifact ${idx + 1}: ${item.caption || project.name}`}
+              className={`rounded-sm overflow-hidden border border-white/10 relative group cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-[#A8FF00] ${
                 item.aspect === '16:9' ? 'md:col-span-2 aspect-[16/9]' : 'aspect-[4/3]'
               }`}
             >
