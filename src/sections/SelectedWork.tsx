@@ -108,11 +108,12 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({ className = "" }) =>
         {/* Section Header & Interactive Filter Bar with animation refs */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-10 border-b border-white/[0.08]">
           <div ref={headingRef}>
-            <div className="font-mono text-xs text-[#85889A] uppercase tracking-[0.25em] mb-3">
-              INDEX 02 // ARCHIVE
+            <div className="font-mono text-[11px] text-[#85889A] uppercase tracking-[0.2em] mb-3 flex items-center gap-2.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1018FF]" />
+              <span>RELEASE ARCHIVE // 04 RELEASES</span>
             </div>
-            <h2 className="font-grotesk text-4xl sm:text-6xl font-bold tracking-tight text-[#F2F2ED] uppercase">
-              / SELECTED WORK
+            <h2 className="font-grotesk text-5xl sm:text-7xl font-bold tracking-[-0.045em] text-[#F2F2ED] uppercase leading-[0.88]">
+              SELECTED WORK
             </h2>
           </div>
 
@@ -130,13 +131,13 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({ className = "" }) =>
                   onClick={() => setActiveFilter(filter)}
                   className={`font-mono text-xs tracking-wider uppercase px-3.5 py-2 sm:py-1.5 min-h-[36px] sm:min-h-0 relative transition-all duration-200 border flex items-center gap-2 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#A8FF00] ${
                     isActive
-                      ? 'border-[#A8FF00] bg-[#A8FF00] text-[#03040A] font-semibold'
-                      : 'border-white/10 text-[#85889A] hover:text-[#F2F2ED] hover:border-white/30 bg-transparent'
+                      ? 'border-[#A8FF00] bg-[#070A24] text-[#F2F2ED] font-medium shadow-[0_0_15px_rgba(168,255,0,0.15)]'
+                      : 'border-white/10 text-[#85889A] hover:text-[#F2F2ED] hover:border-white/25 hover:bg-[#070A24]/40 bg-transparent'
                   }`}
                   aria-pressed={isActive}
                 >
                   <span>{filter}</span>
-                  <span className={`text-[10px] tabular-nums ${isActive ? 'text-[#03040A]' : 'text-[#85889A]'}`}>
+                  <span className={`text-[10px] tabular-nums ${isActive ? 'text-[#A8FF00] font-semibold' : 'text-[#85889A]'}`}>
                     [{count}]
                   </span>
                 </button>

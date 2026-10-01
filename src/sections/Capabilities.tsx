@@ -121,55 +121,59 @@ export const Capabilities: React.FC<{ className?: string }> = ({ className = "" 
         {/* Section Header with Animation Ref */}
         <div ref={headingRef} className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-white/[0.08]">
           <div>
-            <div className="font-mono text-xs text-[#85889A] uppercase tracking-[0.25em] mb-3">
-              EXPERTISE // 04
+            <div className="font-mono text-[11px] text-[#85889A] uppercase tracking-[0.2em] mb-3 flex items-center gap-2.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1018FF]" />
+              <span>PRACTICE AREAS // SPECIFICATION</span>
             </div>
-            <h2 className="font-grotesk text-4xl sm:text-6xl font-bold tracking-tight text-[#F2F2ED] uppercase">
-              / CAPABILITIES
+            <h2 className="font-grotesk text-5xl sm:text-7xl font-bold tracking-[-0.045em] text-[#F2F2ED] uppercase leading-[0.88]">
+              CAPABILITIES
             </h2>
           </div>
-          <p className="font-mono text-xs sm:text-sm text-[#85889A] max-w-md uppercase tracking-wider leading-relaxed">
+          <p className="font-mono text-xs sm:text-sm text-[#85889A] max-w-sm uppercase tracking-wider leading-relaxed md:text-right">
             Specialized visual engineering across brand identity, digital architecture, and kinetic motion.
           </p>
         </div>
 
-        {/* Editorial Layout: Large typography rows with Stagger Animation Ref */}
+        {/* Technical Specification Sheet: Monolithic rows with Stagger Animation Ref */}
         <div ref={rowsRef} className="divide-y divide-white/[0.08]">
           {CAPABILITIES_DATA.map((cap) => (
             <div 
               key={cap.title}
-              className="py-12 sm:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start group will-change-transform"
+              className="py-12 sm:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start group will-change-transform transition-colors duration-200 hover:bg-[#070A24]/20 -mx-4 px-4 sm:-mx-6 sm:px-6 rounded-sm"
             >
               {/* Index & Title */}
               <div className="lg:col-span-5 flex items-baseline gap-6">
                 <span className="font-mono text-xs sm:text-sm text-[#85889A] group-hover:text-[#A8FF00] transition-colors tabular-nums">
                   {cap.index}
                 </span>
-                <h3 className="font-grotesk text-4xl sm:text-6xl font-bold tracking-tight text-[#F2F2ED] uppercase group-hover:text-white transition-colors">
+                <h3 className="font-grotesk text-4xl sm:text-6xl font-bold tracking-[-0.04em] leading-[0.9] text-[#F2F2ED] uppercase group-hover:text-white transition-colors">
                   {cap.title}
                 </h3>
               </div>
 
               {/* Description */}
               <div className="lg:col-span-4">
-                <p className="text-base text-[#85889A] leading-relaxed">
+                <p className="text-sm sm:text-[15px] text-[#85889A] leading-[1.68] max-w-[46ch]">
                   {cap.summary}
                 </p>
               </div>
 
-              {/* Deliverables List */}
+              {/* Deliverables Specification Block */}
               <div className="lg:col-span-3">
-                <div className="font-mono text-[10px] text-[#A8FF00] uppercase tracking-widest mb-3">
-                  CORE DELIVERABLES
+                <div className="p-4 sm:p-5 bg-[#070A24]/40 border border-white/[0.06] rounded-sm group-hover:border-white/10 transition-colors">
+                  <div className="font-mono text-[10px] text-[#85889A] uppercase tracking-widest mb-3 flex items-center justify-between">
+                    <span>DELIVERABLE SCOPE</span>
+                    <span className="text-[#A8FF00] tabular-nums">[{cap.deliverables.length}]</span>
+                  </div>
+                  <ul className="flex flex-col gap-2 font-mono text-xs text-[#F2F2ED]/70">
+                    {cap.deliverables.map((item, idx) => (
+                      <li key={idx} className="flex items-center gap-2 hover:text-[#A8FF00] transition-colors">
+                        <span className="text-[#1018FF]/80 text-[10px]" aria-hidden="true">/</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="flex flex-col gap-2 font-mono text-xs text-[#F2F2ED]/70">
-                  {cap.deliverables.map((item, idx) => (
-                    <li key={idx} className="flex items-center gap-2 hover:text-[#A8FF00] transition-colors">
-                      <span className="text-[#85889A]" aria-hidden="true">—</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
           ))}

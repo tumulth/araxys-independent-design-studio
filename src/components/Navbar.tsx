@@ -122,10 +122,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <Link
               to="/contact"
-              className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-mono uppercase tracking-wider text-[#03040A] bg-[#A8FF00] hover:bg-[#F2F2ED] transition-colors font-medium"
+              className="group hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-mono uppercase tracking-wider text-[#F2F2ED] bg-[#070A24]/70 border border-white/20 hover:bg-[#A8FF00] hover:border-[#A8FF00] hover:text-[#03040A] transition-all duration-200 font-medium"
             >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A8FF00]" />
               <span>START PROJECT</span>
-              <span aria-hidden="true">→</span>
+              <span aria-hidden="true" className="text-white/60 group-hover:text-[#03040A] transition-colors">→</span>
             </Link>
 
             {/* Mobile Menu Trigger Button */}

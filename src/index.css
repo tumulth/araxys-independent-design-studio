@@ -51,8 +51,17 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-grotesk);
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
+    line-height: 0.92;
     text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  .font-mono {
+    font-feature-settings: "tnum" 1, "zero" 1;
   }
 }
 
