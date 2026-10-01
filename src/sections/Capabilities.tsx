@@ -40,14 +40,17 @@ export const CAPABILITIES_DATA: CapabilityArea[] = [
   },
   {
     index: '03',
-    title: 'MOTION',
-    summary: 'Cinematic brand films, kinetic typography, 3D broadcast packages, and micro-interactions that infuse visual systems with lifelike energy.',
+    title: 'SOCIAL',
+    summary: 'Social-first visual systems, campaign creative, and short-form content designed to make brands impossible to ignore.',
     deliverables: [
-      'Kinetic Brand Identities',
-      'Title Sequences & Broadcast Design',
-      '3D Motion Environments',
-      'Interface Animations & Micro-Interactions',
-      'Exhibition & Event Visuals'
+      'Social Media Visual Systems',
+      'Instagram Posts & Carousels',
+      'Reels & Short-Form Content',
+      'Campaign Creatives',
+      'Content Templates',
+      'Art Direction',
+      'Launch & Promotional Campaigns',
+      'Social Brand Guidelines'
     ]
   }
 ];
@@ -130,7 +133,7 @@ export const Capabilities: React.FC<{ className?: string }> = ({ className = "" 
             </h2>
           </div>
           <p className="font-mono text-xs sm:text-sm text-[#85889A] max-w-sm uppercase tracking-wider leading-relaxed md:text-right">
-            Specialized visual engineering across brand identity, digital architecture, and kinetic motion.
+            Specialized visual engineering across brand identity, digital architecture, and creative social systems.
           </p>
         </div>
 

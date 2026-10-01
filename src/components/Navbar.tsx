@@ -9,7 +9,7 @@ interface NavbarProps {
 
 /**
  * 06 — MINIMAL NAVIGATION
- * Desktop: ARAXYS | WORK · ABOUT · CONTACT | START PROJECT →
+ * Desktop: ARAXYS | ABOUT · WORK · CONTACT | START PROJECT →
  * Location metadata: PUNE / INDIA
  * Removed all invented clocks and fake international offices.
  */
@@ -60,8 +60,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   }
 
   const navLinks = [
-    { label: 'WORK', href: '/work' },
     { label: 'ABOUT', href: '/about' },
+    { label: 'WORK', href: '/work' },
     { label: 'CONTACT', href: '/contact' },
   ];
 
@@ -76,7 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             : 'bg-transparent py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between relative">
           {/* Zone 1: Single Brand element */}
           <Link 
             to="/" 
@@ -91,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </Link>
 
           {/* Zone 2: Navigation Links (Desktop) */}
-          <nav className="hidden md:flex items-center gap-8 text-xs font-mono tracking-[0.2em]">
+          <nav className="hidden md:flex items-center gap-8 text-xs font-mono tracking-[0.2em] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.href || 
                 (link.href === '/work' && location.pathname.startsWith('/work'));

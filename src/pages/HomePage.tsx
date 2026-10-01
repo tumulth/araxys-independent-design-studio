@@ -17,7 +17,7 @@ import { ContactSection } from '../sections/ContactSection';
  * 6. SELECTED WORK
  * 7. MARQUEE STRIP
  * 8. APPROACH (THINK, BUILD, BREAK, REBUILD)
- * 9. CAPABILITIES (IDENTITY, DIGITAL, MOTION)
+ * 9. CAPABILITIES (IDENTITY, DIGITAL, SOCIAL)
  * 10. CONTACT (LET'S BUILD SOMETHING.)
  */
 export const HomePage: React.FC = () => {
@@ -39,7 +39,7 @@ export const HomePage: React.FC = () => {
       {/* 18 — Approach (THINK, BUILD, BREAK, REBUILD) */}
       <Approach />
 
-      {/* 19 — Capabilities (IDENTITY, DIGITAL, MOTION) */}
+      {/* 19 — Capabilities (IDENTITY, DIGITAL, SOCIAL) */}
       <Capabilities />
 
       {/* 20 — Contact (LET'S BUILD SOMETHING.) */}

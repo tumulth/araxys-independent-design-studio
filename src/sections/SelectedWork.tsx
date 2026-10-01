@@ -91,7 +91,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({ className = "" }) =>
     return () => ctx.revert();
   }, [activeFilter]);
 
-  const filterButtons: FilterCategory[] = ['ALL', 'BRANDING', 'DIGITAL', 'MOTION'];
+  const filterButtons: FilterCategory[] = ['ALL', 'BRANDING', 'DIGITAL', 'SOCIAL'];
 
   const filteredProjects = activeFilter === 'ALL'
     ? PROJECTS
