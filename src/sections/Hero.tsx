@@ -124,6 +124,7 @@ export const Hero: React.FC = () => {
   const { 
     presentationState, 
     setPresentationState, 
+    isIntroActive,
     isScrollLocked, 
     skipIntro, 
     unlockScroll 
@@ -438,6 +439,31 @@ export const Hero: React.FC = () => {
     if (hasAnimatedRef.current) return;
     hasAnimatedRef.current = true;
 
+    const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768;
+
+    if (isMobile) {
+      // On mobile, immediately unlock scroll and reveal hero text so user can swipe on first touch
+      unlockScroll();
+      setHasEntered(true);
+      const topLabel = topLabelRef.current;
+      const headlineLine1 = headlineLine1Ref.current;
+      const headlineLine2 = headlineLine2Ref.current;
+      const headlineLine3 = headlineLine3Ref.current;
+      const headlineLine4 = headlineLine4Ref.current;
+      const supportingText = supportingTextRef.current;
+      const scrollBtn = scrollBtnRef.current;
+
+      const tl = gsap.timeline();
+      tl.fromTo(topLabel, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }, 0);
+      tl.fromTo(headlineLine1, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.05);
+      tl.fromTo(headlineLine2, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.1);
+      tl.fromTo(headlineLine3, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.15);
+      tl.fromTo(headlineLine4, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.2);
+      tl.fromTo(supportingText, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.25);
+      tl.fromTo(scrollBtn, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }, 0.3);
+      return;
+    }
+
     setPresentationState('HERO_TEXT_DELAY');
 
     const topLabel = topLabelRef.current;
@@ -508,6 +534,9 @@ export const Hero: React.FC = () => {
   useEffect(() => {
     if (presentationState === 'SCROLL_UNLOCKED' && !hasAnimatedRef.current) {
       hasAnimatedRef.current = true;
+      if (entranceTimelineRef.current) {
+        entranceTimelineRef.current.kill();
+      }
       setHasEntered(true);
       const topLabel = topLabelRef.current;
       const headlineLine1 = headlineLine1Ref.current;
@@ -524,6 +553,9 @@ export const Hero: React.FC = () => {
       if (headlineLine4) gsap.set(headlineLine4, { opacity: 1, y: 0 });
       if (supportingText) gsap.set(supportingText, { opacity: 1, y: 0 });
       if (scrollBtn) gsap.set(scrollBtn, { opacity: 1, y: 0 });
+
+      scheduleRender(0);
+      handleScrollUpdate();
     }
   }, [presentationState]);
 
@@ -532,12 +564,12 @@ export const Hero: React.FC = () => {
   };
 
   const handleSkip = () => {
+    hasAnimatedRef.current = true;
     skipIntro();
     if (entranceTimelineRef.current) {
       entranceTimelineRef.current.kill();
     }
     setHasEntered(true);
-    setPresentationState('SCROLL_UNLOCKED');
 
     const topLabel = topLabelRef.current;
     const headlineLine1 = headlineLine1Ref.current;
@@ -554,6 +586,9 @@ export const Hero: React.FC = () => {
     if (headlineLine4) gsap.set(headlineLine4, { opacity: 1, y: 0 });
     if (supportingText) gsap.set(supportingText, { opacity: 1, y: 0 });
     if (scrollBtn) gsap.set(scrollBtn, { opacity: 1, y: 0 });
+
+    scheduleRender(0);
+    handleScrollUpdate();
   };
 
   // Preload sequence frames and mount scroll listener
@@ -622,10 +657,10 @@ export const Hero: React.FC = () => {
         <div className="relative z-20 pt-16 sm:pt-20 w-full shrink-0 pointer-events-none" />
 
         {/* Discreet skip intro button (available while intro is actively playing) */}
-        {isScrollLocked && (
+        {isIntroActive && (
           <button
             onClick={handleSkip}
-            className="fixed bottom-6 right-6 z-50 font-mono text-[10px] tracking-[0.2em] text-[#85889A] hover:text-[#A8FF00] uppercase transition-colors px-3 py-1.5 border border-white/10 hover:border-[#A8FF00]/40 backdrop-blur-md bg-[#03040A]/40"
+            className="fixed bottom-6 right-6 z-50 font-mono text-[10px] tracking-[0.2em] text-[#85889A] hover:text-[#A8FF00] uppercase transition-colors px-3 py-1.5 border border-white/10 hover:border-[#A8FF00]/40 backdrop-blur-md bg-[#03040A]/40 touch-manipulation cursor-pointer"
             aria-label="Skip Intro"
           >
             SKIP INTRO [ESC]

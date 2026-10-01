@@ -50,11 +50,37 @@ let hasPlayedInCurrentSession = false;
 export const IntroProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
 
-  const [presentationState, setPresentationState] = useState<IntroPresentationState>(() => {
+  const [presentationState, setPresentationStateRaw] = useState<IntroPresentationState>(() => {
     return location.pathname === '/' && !hasPlayedInCurrentSession
       ? 'INTRO_ACTIVE'
       : 'SCROLL_UNLOCKED';
   });
+
+  const isCompletedRef = React.useRef<boolean>(
+    location.pathname !== '/' || hasPlayedInCurrentSession
+  );
+
+  const cleanupScrollLockDom = useCallback(() => {
+    document.documentElement.classList.remove('intro-scroll-locked');
+    document.body.classList.remove('intro-scroll-locked');
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    document.body.style.touchAction = '';
+    document.body.style.overscrollBehavior = '';
+  }, []);
+
+  const setPresentationState = useCallback((next: IntroPresentationState) => {
+    // If the intro lifecycle has already completed/unlocked, never regress to any intro or locked state
+    if (isCompletedRef.current && next !== 'SCROLL_UNLOCKED') {
+      return;
+    }
+    if (next === 'SCROLL_UNLOCKED') {
+      isCompletedRef.current = true;
+      hasPlayedInCurrentSession = true;
+      cleanupScrollLockDom();
+    }
+    setPresentationStateRaw(next);
+  }, [cleanupScrollLockDom]);
 
   const isIntroActive = presentationState !== 'HOMEPAGE_ACTIVE' 
     && presentationState !== 'HERO_TEXT_DELAY' 
@@ -65,14 +91,18 @@ export const IntroProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const isScrollLocked = presentationState !== 'SCROLL_UNLOCKED';
 
   const unlockScroll = useCallback(() => {
+    isCompletedRef.current = true;
     hasPlayedInCurrentSession = true;
-    setPresentationState('SCROLL_UNLOCKED');
-  }, []);
+    cleanupScrollLockDom();
+    setPresentationStateRaw('SCROLL_UNLOCKED');
+  }, [cleanupScrollLockDom]);
 
   const skipIntro = useCallback(() => {
+    isCompletedRef.current = true;
     hasPlayedInCurrentSession = true;
-    setPresentationState('SCROLL_UNLOCKED');
-  }, []);
+    cleanupScrollLockDom();
+    setPresentationStateRaw('SCROLL_UNLOCKED');
+  }, [cleanupScrollLockDom]);
 
   // Listen for Escape key to allow discrete skipping
   useEffect(() => {
@@ -113,17 +143,15 @@ export const IntroProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       window.addEventListener('keydown', preventKeyScroll, { passive: false });
 
       return () => {
-        document.documentElement.classList.remove('intro-scroll-locked');
-        document.body.classList.remove('intro-scroll-locked');
+        cleanupScrollLockDom();
         window.removeEventListener('wheel', preventScroll);
         window.removeEventListener('touchmove', preventScroll);
         window.removeEventListener('keydown', preventKeyScroll);
       };
     } else {
-      document.documentElement.classList.remove('intro-scroll-locked');
-      document.body.classList.remove('intro-scroll-locked');
+      cleanupScrollLockDom();
     }
-  }, [isScrollLocked]);
+  }, [isScrollLocked, cleanupScrollLockDom]);
 
   return (
     <IntroContext.Provider value={{

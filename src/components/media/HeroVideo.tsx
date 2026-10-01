@@ -70,6 +70,8 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
       onComplete: () => {
         console.log('MATCH CUT: COMPLETE');
         intro.style.pointerEvents = 'none';
+        intro.style.display = 'none';
+        intro.pause();
         setPresentationState('HOMEPAGE_ACTIVE');
         if (onMatchCutComplete) {
           onMatchCutComplete();
@@ -89,6 +91,7 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
   // 1. PRELOAD & PREPARE VIDEO 2 (Homepage Loop Video) AT FRAME 0
   useEffect(() => {
     const loop = loopVideoRef.current;
+    const intro = introVideoRef.current;
     if (!loop) return;
 
     loop.muted = true;
@@ -96,7 +99,14 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
     loop.playsInline = true;
 
     if (!isIntroActive) {
-      // Repeat visit: loop video plays immediately
+      // Intro dismissed or completed: ensure intro is stopped and loop video is playing
+      isHandoffDoneRef.current = true;
+      if (intro) {
+        intro.pause();
+        intro.style.opacity = '0';
+        intro.style.pointerEvents = 'none';
+        intro.style.display = 'none';
+      }
       const playPromise = loop.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {});
@@ -180,15 +190,21 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
     const handleEnded = () => {
       console.log('INTRO: ENDED');
       isIntroEndedRef.current = true;
-      setPresentationState('INTRO_ENDED');
-
-      // Video 1 stays visible on its final frame as the visual bridge
-      if (isLoopFrame0ReadyRef.current) {
-        triggerMatchCut();
-      }
+      // Immediately trigger match cut; do not hang waiting for loop video frame 0 on mobile browsers
+      triggerMatchCut();
     };
 
     intro.addEventListener('ended', handleEnded, { once: true });
+
+    // Fallback in case mobile Safari reaches the end without firing 'ended'
+    const handleTimeUpdate = () => {
+      if (intro.duration && intro.currentTime >= intro.duration - 0.15) {
+        if (!isIntroEndedRef.current) {
+          handleEnded();
+        }
+      }
+    };
+    intro.addEventListener('timeupdate', handleTimeUpdate);
 
     const playPromise = intro.play();
     if (playPromise !== undefined) {
@@ -211,6 +227,7 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
     return () => {
       intro.removeEventListener('play', handlePlay);
       intro.removeEventListener('ended', handleEnded);
+      intro.removeEventListener('timeupdate', handleTimeUpdate);
       window.removeEventListener('pointerdown', handleGesture);
       window.removeEventListener('keydown', handleGesture);
     };
@@ -259,6 +276,7 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
         style={{
           opacity: isIntroActive ? 1 : 0,
           pointerEvents: isIntroActive ? 'auto' : 'none',
+          display: isIntroActive ? 'block' : 'none',
         }}
       />
     </div>
