@@ -55,7 +55,7 @@ export const AboutPage: React.FC = () => {
       {/* Methodology Section (THINK, BUILD, BREAK, REBUILD) */}
       <Approach />
 
-      {/* Capabilities Section (IDENTITY, DIGITAL, MOTION) */}
+      {/* Capabilities Section (IDENTITY, DIGITAL, SOCIAL) */}
       <Capabilities />
 
       {/* Studio Ethos & Principles */}

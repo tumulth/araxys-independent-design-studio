@@ -51,8 +51,17 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-grotesk);
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
+    line-height: 0.92;
     text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  .font-mono {
+    font-feature-settings: "tnum" 1, "zero" 1;
   }
 }
 
@@ -112,18 +121,27 @@
   animation-play-state: paused;
 }
 
-/* Reduced motion preference */
+/* Intentional Reduced Motion Preference (WCAG 2.3.3) */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable disorienting infinite motion, loops, and large continuous transforms */
   *, ::before, ::after {
-    animation-delay: -1ms !important;
-    animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
     background-attachment: initial !important;
     scroll-behavior: auto !important;
-    transition-duration: 0s !important;
+  }
+
+  /* Retain subtle, immediate interactive state feedback (hover, focus, color transitions) */
+  a, button, input, select, textarea, [role="button"] {
+    transition-duration: 150ms !important;
     transition-delay: 0s !important;
   }
+
+  /* Freeze continuous marquees and infinite ambient loops */
   .animate-marquee {
-    animation: none;
+    animation: none !important;
   }
 }

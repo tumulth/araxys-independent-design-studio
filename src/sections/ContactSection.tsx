@@ -16,16 +16,34 @@ export const ContactSection: React.FC<{ isStandalonePage?: boolean }> = ({
   const headingRef = useRef<HTMLDivElement | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(studioEmail);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopyEmail = async () => {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(studioEmail);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = studioEmail;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch {
+      // Fallback silent handle
+      setCopied(false);
+    }
   };
 
   const socials = [
-    { name: 'INSTAGRAM', placeholder: '[INSTAGRAM HANDLE]', href: '#' },
-    { name: 'LINKEDIN', placeholder: '[LINKEDIN PROFILE]', href: '#' },
-    { name: 'TWITTER / X', placeholder: '[TWITTER/X HANDLE]', href: '#' },
+    { name: 'INSTAGRAM', handle: '@araxys.design', href: 'https://instagram.com/araxys.design' },
+    { name: 'LINKEDIN', handle: '/company/araxys', href: 'https://linkedin.com/company/araxys' },
+    { name: 'TWITTER / X', handle: '@araxys_design', href: 'https://x.com/araxys_design' },
   ];
 
   useEffect(() => {
@@ -89,19 +107,20 @@ export const ContactSection: React.FC<{ isStandalonePage?: boolean }> = ({
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         {/* Section Heading with GSAP animation ref */}
         <div ref={headingRef} className="border-b border-white/[0.08] pb-14 sm:pb-20">
-          <div className="font-mono text-xs text-[#85889A] uppercase tracking-[0.25em] mb-4">
-            CONTACT // 05
+          <div className="font-mono text-[11px] text-[#85889A] uppercase tracking-[0.2em] mb-4 flex items-center gap-2.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#1018FF]" />
+            <span>COMMISSION INQUIRIES // 2026</span>
           </div>
-          <h2 className="font-grotesk text-6xl sm:text-8xl md:text-9xl font-bold tracking-tight uppercase leading-[0.88] select-none">
+          <h2 className="font-grotesk text-6xl sm:text-8xl md:text-9xl font-bold tracking-[-0.045em] uppercase leading-[0.84] select-none">
             LET'S BUILD<br />
             <span className="text-[#A8FF00]">SOMETHING.</span>
           </h2>
         </div>
 
         {/* Contact Grid: Direct Communication & Channels with GSAP animation ref */}
-        <div ref={gridRef} className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-14 sm:pt-16">
+        <div ref={gridRef} className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-12 sm:pt-14">
           {/* Left: Email Inquiries */}
-          <div className="lg:col-span-7 flex flex-col justify-between will-change-transform">
+          <div className="lg:col-span-7 flex flex-col justify-between p-6 sm:p-10 bg-[#070A24]/30 border border-white/[0.06] rounded-sm will-change-transform">
             <div>
               <span className="font-mono text-xs text-[#85889A] uppercase tracking-widest block mb-4">
                 COMMISSION INQUIRIES & NEW PROJECTS
@@ -109,13 +128,13 @@ export const ContactSection: React.FC<{ isStandalonePage?: boolean }> = ({
               <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                 <a
                   href={`mailto:${studioEmail}`}
-                  className="font-grotesk text-2xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#F2F2ED] hover:text-[#A8FF00] transition-colors"
+                  className="font-grotesk text-2xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.035em] text-[#F2F2ED] hover:text-[#A8FF00] transition-colors"
                 >
                   {studioEmail}
                 </a>
                 <button
                   onClick={handleCopyEmail}
-                  className="inline-flex items-center gap-2 self-start sm:self-auto px-3 py-1.5 border border-white/10 hover:border-[#A8FF00] text-xs font-mono text-[#85889A] hover:text-[#A8FF00] transition-colors uppercase tracking-wider"
+                  className="inline-flex items-center gap-2 self-start sm:self-auto px-3.5 py-1.5 border border-white/10 hover:border-[#A8FF00] hover:bg-[#070A24] text-xs font-mono text-[#85889A] hover:text-[#A8FF00] transition-all uppercase tracking-wider"
                   aria-label="Copy studio email address"
                 >
                   {copied ? (
@@ -133,38 +152,48 @@ export const ContactSection: React.FC<{ isStandalonePage?: boolean }> = ({
               </div>
             </div>
 
-            <div className="mt-12 sm:mt-16 font-mono text-xs text-[#85889A] space-y-1">
-              <p>LOCATION: PUNE / INDIA</p>
-              <p>RESPONSE TIME: UNDER 24 HOURS ON BUSINESS DAYS.</p>
+            <div className="mt-12 sm:mt-16 font-mono text-xs text-[#85889A] space-y-1.5 border-t border-white/[0.06] pt-6">
+              <p className="flex items-center gap-2">
+                <span className="text-white/40">LOCATION:</span>
+                <span className="text-[#F2F2ED]">PUNE / INDIA</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <span className="text-white/40">DISPATCH:</span>
+                <span className="text-[#F2F2ED]">UNDER 24 HOURS ON BUSINESS DAYS</span>
+              </p>
             </div>
           </div>
 
           {/* Right: Social Channels & Location */}
-          <div className="lg:col-span-5 flex flex-col justify-between gap-8 border-t lg:border-t-0 lg:border-l border-white/[0.08] lg:pl-12 pt-8 lg:pt-0 will-change-transform">
-            <div>
-              <span className="font-mono text-xs text-[#85889A] uppercase tracking-widest block mb-6">
-                CHANNELS & NETWORK
-              </span>
-              <div className="divide-y divide-white/[0.08]">
-                {socials.map((social) => (
-                  <div
-                    key={social.name}
-                    className="py-4 flex items-center justify-between text-sm font-mono text-[#F2F2ED]"
-                  >
-                    <span>{social.name}</span>
-                    <div className="flex items-center gap-2 text-[#85889A]">
-                      <span className="text-xs">{social.placeholder}</span>
-                      <ArrowUpRight className="w-4 h-4 text-[#85889A]" />
-                    </div>
-                  </div>
-                ))}
+          <div className="lg:col-span-5 flex flex-col justify-between gap-8 will-change-transform">
+            <div className="p-6 sm:p-10 bg-[#070A24]/30 border border-white/[0.06] rounded-sm h-full flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-xs text-[#85889A] uppercase tracking-widest block mb-6">
+                  CHANNELS & NETWORK
+                </span>
+                <div className="divide-y divide-white/[0.08]">
+                  {socials.map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group py-4 flex items-center justify-between text-sm font-mono text-[#F2F2ED] hover:text-[#A8FF00] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#A8FF00]"
+                      aria-label={`${social.name} (${social.handle})`}
+                    >
+                      <span>{social.name}</span>
+                      <div className="flex items-center gap-2 text-[#85889A] group-hover:text-[#A8FF00] transition-colors">
+                        <span className="text-xs">{social.handle}</span>
+                        <ArrowUpRight className="w-4 h-4 text-[#85889A] group-hover:text-[#A8FF00] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </div>
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-
-            {/* Studio Location */}
-            <div className="border-t border-white/[0.08] pt-6 flex flex-col gap-1 font-mono text-[11px] text-[#85889A] uppercase tracking-wider">
-              <span className="text-[#F2F2ED]/90 font-medium">ARAXYS STUDIO</span>
-              <span className="text-[#A8FF00]">BASED IN PUNE, INDIA</span>
+              <div className="pt-6 border-t border-white/[0.06] font-mono text-[11px] text-[#85889A] uppercase tracking-wider flex items-center justify-between">
+                <span>ARAXYS STUDIO</span>
+                <span className="text-[#A8FF00]">PUNE, INDIA</span>
+              </div>
             </div>
           </div>
         </div>

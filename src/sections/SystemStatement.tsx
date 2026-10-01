@@ -31,7 +31,7 @@ export const SystemStatement: React.FC<{ className?: string }> = ({ className = 
           <span>·</span>
           <span>02 / DIGITAL</span>
           <span>·</span>
-          <span>03 / MOTION</span>
+          <span>03 / SOCIAL</span>
         </div>
       </div>
     </section>

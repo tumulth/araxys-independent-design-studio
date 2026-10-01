@@ -14,6 +14,14 @@ export default function App() {
     <BrowserRouter>
       <IntroProvider>
         <div className="min-h-screen bg-[#03040A] text-[#F2F2ED] flex flex-col justify-between selection:bg-[#A8FF00] selection:text-[#03040A] relative">
+          {/* Accessible skip link for keyboard navigation */}
+          <a 
+            href="#main-content" 
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#A8FF00] focus:text-[#03040A] focus:font-mono focus:text-xs focus:font-bold focus:uppercase focus:ring-2 focus:ring-white"
+          >
+            Skip to main content
+          </a>
+
           {/* Subtle analog film grain texture across dark canvas */}
           <div className="film-grain" />
 
@@ -21,7 +29,7 @@ export default function App() {
           <Navbar />
 
         {/* Main Application Routes */}
-        <main className="flex-1 w-full">
+        <main id="main-content" className="flex-1 w-full">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/work" element={<WorkPage />} />

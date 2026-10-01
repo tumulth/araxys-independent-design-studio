@@ -7,7 +7,7 @@
 
 import { MEDIA, ProjectMedia } from './media';
 
-export type FilterCategory = 'ALL' | 'BRANDING' | 'DIGITAL' | 'MOTION' | 'PACKAGING';
+export type FilterCategory = 'ALL' | 'BRANDING' | 'DIGITAL' | 'SOCIAL' | 'PACKAGING' | 'MOTION';
 
 export interface CaseStudyContent {
   statement: string;
@@ -103,7 +103,7 @@ export const PROJECTS: Project[] = [
     category: 'Branding / Packaging / Content',
     year: '2026',
     client: 'Butta Burger Hospitality Group',
-    tags: ['BRANDING', 'MOTION'],
+    tags: ['BRANDING', 'SOCIAL'],
     media: MEDIA.projects['butta-burger'],
     visualWorld: {
       theme: 'food',

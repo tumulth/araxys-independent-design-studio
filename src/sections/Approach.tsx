@@ -103,43 +103,46 @@ export const Approach: React.FC<{ className?: string }> = ({ className = "" }) =
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         {/* Section Header with Animation Ref */}
-        <div ref={headingRef} className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-white/[0.08]">
-          <div>
-            <div className="font-mono text-xs text-[#85889A] uppercase tracking-[0.25em] mb-3">
-              METHODOLOGY // 03
+        <div ref={headingRef} className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-12 border-b border-white/[0.08]">
+          <div className="max-w-2xl">
+            <div className="font-mono text-[11px] text-[#85889A] uppercase tracking-[0.2em] mb-3 flex items-center gap-2.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1018FF]" />
+              <span>STUDIO METHODOLOGY</span>
             </div>
-            <h2 className="font-grotesk text-4xl sm:text-6xl font-bold tracking-tight text-[#F2F2ED] uppercase">
-              / APPROACH
+            <h2 className="font-grotesk text-4xl sm:text-6xl font-bold tracking-[-0.04em] text-[#F2F2ED] uppercase leading-[0.88]">
+              THINK. BUILD. BREAK. REBUILD.
             </h2>
           </div>
-          <p className="font-mono text-xs sm:text-sm text-[#85889A] max-w-md uppercase tracking-wider leading-relaxed">
-            A non-linear cycle of inquiry, structural creation, stress-testing, and synthesis.
+          <p className="font-mono text-xs sm:text-sm text-[#85889A] max-w-sm uppercase tracking-wider leading-relaxed lg:text-right">
+            A non-linear cycle of structural inquiry, extreme stress-testing, and synthesis.
           </p>
         </div>
 
-        {/* 4 Pillars with Stagger Animation Ref */}
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-12">
-          {APPROACH_PILLARS.map((pillar) => (
+        {/* 4 Pillars with Staggered Grid Rhythm */}
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-12 lg:pb-8">
+          {APPROACH_PILLARS.map((pillar, idx) => (
             <div 
               key={pillar.name}
-              className="group flex flex-col justify-between p-6 sm:p-8 bg-[#070A24]/30 border border-white/[0.06] hover:border-[#A8FF00]/40 transition-colors duration-300 relative overflow-hidden will-change-transform"
+              className={`group flex flex-col justify-between p-6 sm:p-8 bg-[#070A24]/30 border border-white/[0.06] hover:bg-[#070A24]/60 hover:border-[#1018FF]/50 transition-all duration-300 relative overflow-hidden will-change-transform ${
+                idx === 1 || idx === 3 ? 'lg:translate-y-8' : ''
+              }`}
             >
               {/* Corner tech accent */}
-              <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[#85889A]/40 group-hover:border-[#A8FF00]" />
+              <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/20 group-hover:border-[#A8FF00] transition-colors" />
 
               <div>
                 <div className="font-mono text-xs text-[#85889A] group-hover:text-[#A8FF00] tracking-widest tabular-nums mb-6 transition-colors">
                   PHASE // {pillar.number}
                 </div>
-                <h3 className="font-grotesk text-3xl sm:text-4xl font-bold tracking-tight text-[#F2F2ED] uppercase mb-3">
+                <h3 className="font-grotesk text-3xl sm:text-4xl font-bold tracking-[-0.035em] text-[#F2F2ED] uppercase mb-3">
                   {pillar.name}
                 </h3>
-                <div className="font-mono text-[11px] text-[#A8FF00]/90 uppercase tracking-wider mb-4">
+                <div className="font-mono text-[11px] text-[#A8FF00] uppercase tracking-wider mb-4">
                   {pillar.tagline}
                 </div>
               </div>
 
-              <p className="text-sm text-[#85889A] leading-relaxed mt-6 border-t border-white/[0.06] pt-4">
+              <p className="text-sm text-[#85889A] leading-[1.65] mt-6 border-t border-white/[0.06] pt-4">
                 {pillar.description}
               </p>
             </div>

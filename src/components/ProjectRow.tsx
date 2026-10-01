@@ -28,7 +28,7 @@ export const ProjectRow: React.FC<ProjectRowProps> = ({
       onMouseEnter={(e) => onHoverStart?.(project, e)}
       onMouseLeave={() => onHoverEnd?.()}
       onMouseMove={(e) => onMouseMove?.(e)}
-      className="group block w-full border-b border-white/[0.08] py-8 sm:py-10 transition-colors duration-300 hover:bg-white/[0.02]"
+      className="group block w-full border-b border-white/[0.08] py-8 sm:py-10 transition-colors duration-300 hover:bg-[#070A24]/40"
       aria-label={`View project ${project.name}`}
     >
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 transition-transform duration-300 group-hover:translate-x-1.5">
@@ -38,7 +38,7 @@ export const ProjectRow: React.FC<ProjectRowProps> = ({
             {project.number}
           </span>
           <div>
-            <h3 className="font-grotesk text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F2F2ED] uppercase transition-colors group-hover:text-white">
+            <h3 className="font-grotesk text-3xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.04em] leading-[0.9] text-[#F2F2ED] uppercase transition-colors group-hover:text-white">
               {project.name}
             </h3>
             <div className="flex items-center gap-2 mt-2 text-xs font-mono text-[#85889A] lg:hidden">
@@ -52,17 +52,17 @@ export const ProjectRow: React.FC<ProjectRowProps> = ({
         {/* Center: Metadata & Category (Desktop) */}
         <div className="hidden lg:flex flex-col items-start font-mono text-xs text-[#85889A] uppercase tracking-wider">
           <span className="text-[#F2F2ED]/90">{project.category}</span>
-          <span className="text-[#85889A]/70 text-[10px] mt-0.5">EST. {project.year}</span>
+          <span className="text-[#85889A]/70 text-[10px] mt-0.5 tabular-nums">EST. {project.year}</span>
         </div>
 
         {/* Right: Visual Preview Area + Arrow */}
         <div className="flex items-center justify-between lg:justify-end gap-6 sm:gap-8">
           {/* Static Thumbnail on row */}
-          <div className="relative w-28 sm:w-36 h-16 sm:h-20 rounded-sm overflow-hidden bg-[#070A24] border border-white/10 shrink-0 shadow-lg">
+          <div className="relative w-28 sm:w-36 h-16 sm:h-20 rounded-sm overflow-hidden bg-[#070A24] border border-white/10 group-hover:border-[#1018FF]/50 shrink-0 shadow-lg transition-colors">
             <div className="w-full h-full transition-transform duration-500 group-hover:scale-105">
               <ClientVisualWorld project={project} type="thumbnail" />
             </div>
-            <div className="absolute inset-0 border border-transparent group-hover:border-[#A8FF00]/40 transition-colors pointer-events-none" />
+            <div className="absolute inset-0 border border-transparent group-hover:border-[#A8FF00]/30 transition-colors pointer-events-none" />
           </div>
 
           {/* Interactive Arrow */}

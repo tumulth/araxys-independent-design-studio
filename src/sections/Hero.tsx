@@ -106,6 +106,8 @@ export const Hero: React.FC = () => {
   const topLabelRef = useRef<HTMLDivElement | null>(null);
   const headlineLine1Ref = useRef<HTMLSpanElement | null>(null);
   const headlineLine2Ref = useRef<HTMLSpanElement | null>(null);
+  const headlineLine3Ref = useRef<HTMLSpanElement | null>(null);
+  const headlineLine4Ref = useRef<HTMLSpanElement | null>(null);
   const supportingTextRef = useRef<HTMLParagraphElement | null>(null);
   const scrollBtnRef = useRef<HTMLButtonElement | null>(null);
 
@@ -441,10 +443,12 @@ export const Hero: React.FC = () => {
     const topLabel = topLabelRef.current;
     const headlineLine1 = headlineLine1Ref.current;
     const headlineLine2 = headlineLine2Ref.current;
+    const headlineLine3 = headlineLine3Ref.current;
+    const headlineLine4 = headlineLine4Ref.current;
     const supportingText = supportingTextRef.current;
     const scrollBtn = scrollBtnRef.current;
 
-    if (!topLabel || !headlineLine1 || !headlineLine2 || !supportingText || !scrollBtn) return;
+    if (!topLabel || !headlineLine1 || !headlineLine2 || !headlineLine3 || !headlineLine4 || !supportingText || !scrollBtn) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -461,17 +465,21 @@ export const Hero: React.FC = () => {
       });
 
       tl.fromTo(topLabel, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0);
-      tl.fromTo(headlineLine1, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.1);
-      tl.fromTo(headlineLine2, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.2);
-      tl.fromTo(supportingText, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.35);
-      tl.fromTo(scrollBtn, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.5);
+      tl.fromTo(headlineLine1, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.08);
+      tl.fromTo(headlineLine2, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.16);
+      tl.fromTo(headlineLine3, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.24);
+      tl.fromTo(headlineLine4, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.32);
+      tl.fromTo(supportingText, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.42);
+      tl.fromTo(scrollBtn, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.55);
       return;
     }
 
-    gsap.set(topLabel, { opacity: 0, y: 30 });
-    gsap.set(headlineLine1, { opacity: 0, y: 40 });
-    gsap.set(headlineLine2, { opacity: 0, y: 40 });
-    gsap.set(supportingText, { opacity: 0, y: 30 });
+    gsap.set(topLabel, { opacity: 0, y: 25 });
+    gsap.set(headlineLine1, { opacity: 0, y: 35 });
+    gsap.set(headlineLine2, { opacity: 0, y: 35 });
+    gsap.set(headlineLine3, { opacity: 0, y: 35 });
+    gsap.set(headlineLine4, { opacity: 0, y: 35 });
+    gsap.set(supportingText, { opacity: 0, y: 25 });
     gsap.set(scrollBtn, { opacity: 0, y: 20 });
 
     const tl = gsap.timeline({
@@ -487,11 +495,13 @@ export const Hero: React.FC = () => {
 
     entranceTimelineRef.current = tl;
 
-    tl.fromTo(topLabel, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, 0);
-    tl.fromTo(headlineLine1, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, 0.14);
-    tl.fromTo(headlineLine2, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, 0.28);
-    tl.fromTo(supportingText, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, 0.45);
-    tl.fromTo(scrollBtn, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, 0.65);
+    tl.fromTo(topLabel, { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' }, 0);
+    tl.fromTo(headlineLine1, { opacity: 0, y: 35 }, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, 0.12);
+    tl.fromTo(headlineLine2, { opacity: 0, y: 35 }, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, 0.22);
+    tl.fromTo(headlineLine3, { opacity: 0, y: 35 }, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, 0.32);
+    tl.fromTo(headlineLine4, { opacity: 0, y: 35 }, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, 0.42);
+    tl.fromTo(supportingText, { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, 0.55);
+    tl.fromTo(scrollBtn, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, 0.70);
   };
 
   // If intro was skipped or already completed in session, immediately reveal hero text
@@ -502,12 +512,16 @@ export const Hero: React.FC = () => {
       const topLabel = topLabelRef.current;
       const headlineLine1 = headlineLine1Ref.current;
       const headlineLine2 = headlineLine2Ref.current;
+      const headlineLine3 = headlineLine3Ref.current;
+      const headlineLine4 = headlineLine4Ref.current;
       const supportingText = supportingTextRef.current;
       const scrollBtn = scrollBtnRef.current;
 
       if (topLabel) gsap.set(topLabel, { opacity: 1, y: 0 });
       if (headlineLine1) gsap.set(headlineLine1, { opacity: 1, y: 0 });
       if (headlineLine2) gsap.set(headlineLine2, { opacity: 1, y: 0 });
+      if (headlineLine3) gsap.set(headlineLine3, { opacity: 1, y: 0 });
+      if (headlineLine4) gsap.set(headlineLine4, { opacity: 1, y: 0 });
       if (supportingText) gsap.set(supportingText, { opacity: 1, y: 0 });
       if (scrollBtn) gsap.set(scrollBtn, { opacity: 1, y: 0 });
     }
@@ -528,12 +542,16 @@ export const Hero: React.FC = () => {
     const topLabel = topLabelRef.current;
     const headlineLine1 = headlineLine1Ref.current;
     const headlineLine2 = headlineLine2Ref.current;
+    const headlineLine3 = headlineLine3Ref.current;
+    const headlineLine4 = headlineLine4Ref.current;
     const supportingText = supportingTextRef.current;
     const scrollBtn = scrollBtnRef.current;
 
     if (topLabel) gsap.set(topLabel, { opacity: 1, y: 0 });
     if (headlineLine1) gsap.set(headlineLine1, { opacity: 1, y: 0 });
     if (headlineLine2) gsap.set(headlineLine2, { opacity: 1, y: 0 });
+    if (headlineLine3) gsap.set(headlineLine3, { opacity: 1, y: 0 });
+    if (headlineLine4) gsap.set(headlineLine4, { opacity: 1, y: 0 });
     if (supportingText) gsap.set(supportingText, { opacity: 1, y: 0 });
     if (scrollBtn) gsap.set(scrollBtn, { opacity: 1, y: 0 });
   };
@@ -614,69 +632,98 @@ export const Hero: React.FC = () => {
           </button>
         )}
 
-        {/* LAYER 3: Main Centered Hero Content Block (Z-20, slides up and fades away on scroll) */}
+        {/* LAYER 3: Main Hero Content Block (Option A: Asymmetrical Editorial Composition) */}
         <div 
           ref={heroContentRef}
-          className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 w-full my-auto flex flex-col items-center justify-center will-change-transform select-none"
+          className="relative z-20 max-w-7xl mx-auto px-6 sm:px-8 w-full mt-auto mb-4 sm:mb-6 will-change-transform select-none"
         >
-          {/* Top Technical Label */}
-          <div 
-            ref={topLabelRef}
-            className="flex flex-col items-center justify-center font-mono text-[10px] sm:text-[11px] text-[#D2D4DE] tracking-[0.32em] uppercase mb-5 sm:mb-6 will-change-transform"
-            style={{
-              textShadow: '0 2px 14px rgba(0, 0, 0, 0.85)',
-              opacity: hasEntered ? 1 : 0,
-              transform: hasEntered ? 'none' : 'translateY(30px)',
-            }}
-          >
-            <span>INDEPENDENT DESIGN STUDIO</span>
-            <div className="w-7 sm:w-8 h-[1.5px] bg-[#A8FF00] mt-2.5 mx-auto" />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-end w-full">
+            {/* LOWER-LEFT: Studio Information & Main Headline */}
+            <div className="lg:col-span-7 xl:col-span-7 flex flex-col items-start text-left">
+              {/* Technical Studio Metadata */}
+              <div 
+                ref={topLabelRef}
+                className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-[#85889A] mb-3.5 sm:mb-4 text-left will-change-transform"
+                style={{
+                  textShadow: '0 2px 14px rgba(0, 0, 0, 0.9)',
+                  opacity: hasEntered ? 1 : 0,
+                  transform: hasEntered ? 'none' : 'translateY(25px)',
+                }}
+              >
+                <div className="text-[#F2F2ED]/90 font-medium">INDEPENDENT DESIGN STUDIO</div>
+                <div className="text-[#85889A] text-[9px] sm:text-[10px] tracking-[0.3em] mt-0.5">PUNE / INDIA</div>
+                <div className="w-6 sm:w-7 h-[1.5px] bg-[#A8FF00] mt-2" />
+              </div>
+
+              {/* Main Headline (WE MAKE / BRANDS / IMPOSSIBLE / TO IGNORE.) */}
+              <h1 
+                className="font-grotesk font-extrabold tracking-[-0.04em] uppercase leading-[0.88] select-none text-left flex flex-col items-start"
+                style={{
+                  fontSize: 'clamp(2.5rem, 5.2vw, 5.75rem)',
+                }}
+              >
+                <span 
+                  ref={headlineLine1Ref}
+                  className="block text-[#F2F2ED] will-change-transform"
+                  style={{
+                    textShadow: '0 4px 24px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.95)',
+                    opacity: hasEntered ? 1 : 0,
+                    transform: hasEntered ? 'none' : 'translateY(35px)',
+                  }}
+                >
+                  WE MAKE
+                </span>
+                <span 
+                  ref={headlineLine2Ref}
+                  className="block text-[#F2F2ED] will-change-transform"
+                  style={{
+                    textShadow: '0 4px 24px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.95)',
+                    opacity: hasEntered ? 1 : 0,
+                    transform: hasEntered ? 'none' : 'translateY(35px)',
+                  }}
+                >
+                  BRANDS
+                </span>
+                <span 
+                  ref={headlineLine3Ref}
+                  className="block text-[#A8FF00] will-change-transform"
+                  style={{
+                    textShadow: '0 4px 24px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.95)',
+                    opacity: hasEntered ? 1 : 0,
+                    transform: hasEntered ? 'none' : 'translateY(35px)',
+                  }}
+                >
+                  IMPOSSIBLE
+                </span>
+                <span 
+                  ref={headlineLine4Ref}
+                  className="block text-[#F2F2ED] will-change-transform"
+                  style={{
+                    textShadow: '0 4px 24px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.95)',
+                    opacity: hasEntered ? 1 : 0,
+                    transform: hasEntered ? 'none' : 'translateY(35px)',
+                  }}
+                >
+                  TO IGNORE.
+                </span>
+              </h1>
+            </div>
+
+            {/* LOWER-RIGHT: Supporting Copy */}
+            <div className="lg:col-span-5 xl:col-span-5 flex flex-col justify-end lg:items-end w-full pb-1 sm:pb-2">
+              <p 
+                ref={supportingTextRef}
+                className="text-xs sm:text-sm text-[#85889A] max-w-[320px] leading-relaxed text-left will-change-transform font-normal"
+                style={{
+                  textShadow: '0 2px 14px rgba(0, 0, 0, 0.95)',
+                  opacity: hasEntered ? 1 : 0,
+                  transform: hasEntered ? 'none' : 'translateY(25px)',
+                }}
+              >
+                <span className="text-[#C4C7D4]">Brand identities, digital experiences, and social systems</span> for brands with somewhere to go.
+              </p>
+            </div>
           </div>
-
-          {/* Main Headline (WE MAKE BRANDS IMPOSSIBLE TO IGNORE.) */}
-          <h1 
-            className="font-grotesk font-bold tracking-tight uppercase leading-[0.92] select-none text-center flex flex-col items-center justify-center my-2 sm:my-3"
-            style={{
-              fontSize: 'clamp(2.5rem, 5.8vw, 5.25rem)',
-              letterSpacing: '-0.035em',
-            }}
-          >
-            <span 
-              ref={headlineLine1Ref}
-              className="block text-[#F2F2ED] sm:whitespace-nowrap will-change-transform"
-              style={{
-                textShadow: '0 5px 22px rgba(0, 0, 0, 0.70), 0 1px 4px rgba(0, 0, 0, 0.90)',
-                opacity: hasEntered ? 1 : 0,
-                transform: hasEntered ? 'none' : 'translateY(40px)',
-              }}
-            >
-              WE MAKE BRANDS
-            </span>
-            <span 
-              ref={headlineLine2Ref}
-              className="block text-[#A8FF00] sm:whitespace-nowrap will-change-transform"
-              style={{
-                textShadow: '0 5px 22px rgba(0, 0, 0, 0.70), 0 1px 4px rgba(0, 0, 0, 0.90)',
-                opacity: hasEntered ? 1 : 0,
-                transform: hasEntered ? 'none' : 'translateY(40px)',
-              }}
-            >
-              IMPOSSIBLE TO IGNORE.
-            </span>
-          </h1>
-
-          {/* Supporting Copy */}
-          <p 
-            ref={supportingTextRef}
-            className="mt-6 sm:mt-7 text-xs sm:text-sm md:text-base text-[#C4C7D4] font-normal max-w-[620px] mx-auto leading-relaxed text-center px-4 will-change-transform"
-            style={{
-              textShadow: '0 2px 14px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.95)',
-              opacity: hasEntered ? 1 : 0,
-              transform: hasEntered ? 'none' : 'translateY(30px)',
-            }}
-          >
-            Brand identities, digital experiences, and visual systems<br className="hidden sm:inline" /> built for brands with somewhere to go.
-          </p>
         </div>
 
         {/* LAYER 4: Bottom Scroll Indicator (Z-20, fades out on first scroll) */}
